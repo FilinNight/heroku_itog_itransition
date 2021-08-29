@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Collection Items</title>
+    <link rel="shortcut icon"
+          href="https://icon-library.com/images/sustainability-icon-png/sustainability-icon-png-29.jpg"
+          type="image/x-icon">
+
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/background.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/blog.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/item.css}"/>
+
+
+</head>
+
+<body>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" th:href="@{/main}">Collection Items</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li th:if="${isAdmin}" class="nav-item">
+                        <a class="nav-link active" aria-current="page"
+                           th:href="@{/admins/{nameUser}(nameUser=${authenticationName})}">Admin</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" th:href="@{/main}">Main</a>
+                    </li>
+                </ul>
+            </div>
+            <div style="padding-right: 10px">
+                <form class="d-flex" th:action="@{/users/search}" th:method="POST">
+                    <input class="form-control me-2" type="search" name="key" placeholder="Search"
+                           aria-label="Search">
+                    <div th:if="${showAll}">
+                        <button class="btn btn-dark" name="action" value="search" type="submit"
+                                style="width: 100px;  background: rgba(72,72,72,0.61)" >ALL</button>
+                    </div>
+                    <div th:if="${!showAll}">
+                        <button class="btn btn-dark" name="action" value="search" type="submit"
+                                style="width: 100px;  background: rgba(72,72,72,0.61)" >Search</button>
+                    </div>
+
+                </form>
+            </div>
+            <div style="float: left; all: initial" th:if="${isAuthentication}">
+                <form class="d-flex" style="all: initial" th:action="@{/logout}" method="post">
+                    <button type="submit" class="btn btn-dark"
+                            style="width: 100px; background: rgba(72,72,72,0.61)" >Sign Out</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="wrapper">
+    <br/>
+
+<!--   user info   -->
+    <div style="text-align: left; align-items: center; display:inline-block; padding-left: 40px">
+        <div style="display:inline-block;">
+            <div class="imgDiv">
+                <img class="imgCenter" th:src="${user.getUrl()}">
+            </div>
+        </div>
+        <div style="display:inline-block; position: absolute; top: 25px; padding-left: 20px">
+            <div>
+                <h4 style="display:inline-block; font-weight: bold">Name: </h4>
+                <h4 style="display:inline-block;" th:text="${user.getUsername()}">name:</h4>
+            </div>
+            <div>
+                <h4 style="display:inline-block; font-weight: bold">Email: </h4>
+                <h4 style="display:inline-block;" th:text="${user.getEmail()}">email:</h4>
+            </div>
+            <div>
+                <h4 style="display:inline-block; font-weight: bold">Date registration: </h4>
+                <h4 style="display:inline-block;" th:text="${user.getFormatDate()}">getFormatDate:</h4>
+            </div>
+            <div>
+                <!--   use Modal (editUser)   -->
+                <button style="background: rgba(0,0,0,0.55)" class="btn btn-dark"
+                        data-toggle="modal"
+                        th:attr="data-target=${'#editUser'}"
+                        data-user="${user}">Edit profile</button>
+            </div>
+        </div>
+    </div>
+
+
+<!--   user page   -->
+    <div>
+        <br>
+        <hr/>
+        <!--   list Collections  -->
+        <div class="left" style=" width: 60%; min-width: 500px; height: 70vh; margin-left: 100px; margin-top: 10px">
+            <div style="background: rgba(44,44,44,0.91); margin-left: 2px; margin-right: 2px; margin-top: 10px; padding: 10px;">
+                <h2 class="container text-center" style="color: rgba(253,253,253,0.87)">My Collections:</h2>
+            </div>
+            <div class="border-r"
+                 style="height: 90%; overflow: auto; background: rgba(43,52,47,0.09); padding: 10px; margin-right: 3px; margin-left: 3px">
+                <div th:each="collection : ${collections}">
+                    <div id="blog" class="row"
+                         style="border: 1px solid rgba(43,86,85,0.38); background: rgba(209,255,237,0.8); margin: 1px; padding: 1px">
+                        <div class="col " style="padding-top: 2px; height: 50px">
+                            <img style=" height: 45px;  text-align: center" th:src="${collection.getUrl()}"
+                                 alt="post img"
+                                 class="pull-left left img-responsive thumb margin10 img-thumbnail">
+                            <h4 style="color: rgba(0,0,0,0.55); text-align: left; padding-top: 14px"
+                                th:text="${collection.getFormatDate()}">Date</h4>
+                        </div>
+                        <div class="col" style="padding-top: 10px">
+                            <h2 th:text="${collection.getName()}">Name</h2>
+                        </div>
+                        <div class="col">
+                            <div style="float: right; padding-right: 10px; padding-top: 9px">
+                                <div style="display:inline-block">
+                                    <button class="btn btn-dark btn-edit-collection"
+                                            style="background: rgba(86,139,234,0.86); border-color: rgba(72,120,206,0.92)"
+                                            data-toggle="modal"
+                                            th:attr="data-target=${'#editModalCollection'+collection.getId()}"
+                                            data-collection="${collection}">edit
+                                    </button>
+                                </div>
+                                <div style="display:inline-block">
+                                    <button class="btn btn-dark btn-show-collection"
+                                            style="background: rgba(0,0,0,0.38); border-color: rgba(0,0,0,0.45)"
+                                            data-toggle="modal"
+                                            th:attr="data-target=${'#showModalCollection'+collection.getId()}"
+                                            data-collection="${collection}">Show
+                                    </button>
+                                </div>
+                                <div style="display:inline-block">
+                                    <form th:action="@{/collections/{id}(id=${collection.getId()})}" method="get">
+                                        <button class="btn btn-dark pull-right marginBottom10"
+                                                style="background: rgba(0,0,0,0.38); border-color: rgba(0,0,0,0.45)"
+                                                type="submit">Open
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--   new Collection  -->
+        <div class="right-element" style="padding-bottom: 50px">
+
+            <div style="text-align: center">
+                <div style="background: rgba(44,44,44,0.91); margin-top: 10px; padding: 10px;">
+                    <h2 class="container text-center" style="color: rgba(253,253,253,0.87)">New collection: </h2>
+                </div>
+                <div class="container text-center border-r" style="background: rgba(43,52,47,0.09); padding: 10px;">
+
+                    <form class="form" th:action="@{/users/addCollection}" th:method="POST"
+                          th:object="${collection}" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <div style="text-align: center; height: 200px">
+                                <div style="padding-top: 15px">
+                                    <img class="round" style="height: 150px; width: 150px"
+                                         src="https://socialvk.ru/wp-content/uploads/avatarka-pustaya-vk_21.jpg"/>
+                                </div>
+
+                                <div style="padding-top: 10px">
+                                    <input style="padding: 5px" type="file" name="file">
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name collection</label>
+                            <input type="text" class="form-control" th:field="*{name}" id="name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control" th:field="*{description}" id="description"
+                                      rows="3"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="btn btn-primary">Add Collection</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+
+<!--MODALS-->
+
+<div th:attr="id=${'editUser'}" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form class="form" th:action="@{/users/editUser}" th:method="POST" enctype="multipart/form-data">
+                <div class="modal-header">
+                    <lable style="margin-left: 10px" th:text="${user.getId()}"></lable>
+                    <div style="text-align: center; width: 100%">
+                        <h3 style="padding-left: 14px" class="modal-title" th:text="${user.getUsername}">Edit profile:</h3>
+                    </div>
+                    <button type="button" class="btn-close" data-dismiss="modal"
+                            style="margin-right: 10px;"></button>
+                </div>
+                <div class="modal-body" style="margin: 15px">
+                    <div style="text-align: center; height: 200px">
+                        <img style="height: 95%" th:src="${user.getUrl()}"/>
+                    </div>
+                    <div>
+                        <input type="file" name="file" value="upload">
+                    </div>
+                    <hr>
+                    <hr>
+                    <input type="hidden" th:value="${user.getId()}" name="id">
+                    <div>
+                        <lable>Email: </lable>
+                        <input style="color: rgba(0,0,0,0.8)" type="email" th:value="${user.getEmail()}" name="email">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div>
+                        <button class="btn btn-dark"
+                                style="background: rgba(0,0,0,0.55); border-color: rgba(0,0,0,0.49)"
+                                data-dismiss="modal">close
+                        </button>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary"
+                                type="submit"
+                                style="background: rgba(86,139,234,0.86); border-color: rgba(72,120,206,0.92)"
+                                name="action" value="editProfile">save
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<div th:each="collection : ${collections}" th:attr="id=${'showModalCollection' + collection.getId()}" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <lable style="margin-left: 10px" th:text="${collection.getId()}"></lable>
+                <div style="text-align: center; width: 100%">
+                    <h3 style="padding-left: 14px" class="modal-title" th:text="${collection.getName()}">Name:</h3>
+                </div>
+                <button type="button" class="btn-close" data-dismiss="modal"
+                        style="margin-right: 10px;"></button>
+            </div>
+            <div class="modal-body" style="margin: 15px">
+                <div style="text-align: center; height: 200px">
+                    <img style="height: 95%" th:src="${collection.getUrl()}"/>
+                </div>
+                <hr>
+                <div style="height: 200px">
+                    <h4 style="color: rgba(0,0,0,0.6)">Description: </h4>
+                    <div class="border-r" style="background: rgba(239,239,239,0.06); height: 140px; overflow: auto">
+                        <h3 style="color: rgba(0,0,0,0.62); border: 1px; padding: 10px" type="text" class="form-control"
+                            th:text="${collection.getDescription()}"></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:each="collection : ${collections}" th:attr="id=${'editModalCollection' + collection.getId()}" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <form class="form" th:action="@{/users/changeCollection}" th:method="POST" enctype="multipart/form-data">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <lable style="margin-left: 10px" th:text="${collection.getId()}"></lable>
+                    <div style="text-align: center; width: 100%">
+                        <h3 style="padding-left: 14px" class="modal-title">Edit:</h3>
+                    </div>
+                    <button type="button" class="btn-close" data-dismiss="modal"
+                            style="margin-right: 10px;"></button>
+                </div>
+                <div class="modal-body" style="margin: 15px">
+                    <div style="text-align: center; height: 200px">
+                        <img style="height: 95%" th:src="${collection.getUrl()}"/>
+                    </div>
+                    <div>
+                        <input type="file" name="file" value="upload">
+                    </div>
+                    <hr>
+                    <input type="hidden" th:value="${collection.getId()}" name="id">
+                    <div>
+                        <h4 style="color: rgba(0,0,0,0.8)">Name: </h4>
+                        <input style="color: rgba(0,0,0,0.8)" type="text" th:value="${collection.getName()}" name="name">
+                    </div>
+                    <br>
+                    <div style="height: 200px">
+                        <h4 style="color: rgba(0,0,0,0.8)">Description: </h4>
+                        <div class="border-r" style="background: rgba(239,239,239,0.06); height: 140px;">
+                        <textarea style="color: rgba(0,0,0,0.8); border: 1px; padding: 10px; height: 100%" type="text"
+                                  class="form-control"
+                                  th:text="${collection.getDescription()}"
+                                  name="description"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div>
+                        <button class="btn btn-danger" name="action" value="deleteCollection">delete</button>
+                    </div>
+                    <div>
+                        <button class="btn btn-dark"
+                                style="background: rgba(0,0,0,0.55); border-color: rgba(0,0,0,0.49)"
+                                data-dismiss="modal">close
+                        </button>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary"
+                                style="background: rgba(86,139,234,0.86); border-color: rgba(72,120,206,0.92)"
+                                name="action" value="changeCollection">save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+<ul class="bg-bubbles">
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript" th:src="@{/static/js/main.js}"></script>
+</body>
+</html>

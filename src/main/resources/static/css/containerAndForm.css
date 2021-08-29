@@ -1,0 +1,105 @@
+.wrapper.form-success .container h1 {
+    -webkit-transform: translateY(85px);
+    transform: translateY(85px);
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 80px 0;
+    height: 400px;
+    text-align: center;
+}
+.container h1 {
+    font-size: 40px;
+    -webkit-transition-duration: 1s;
+    transition-duration: 1s;
+    -webkit-transition-timing-function: ease-in-put;
+    transition-timing-function: ease-in-put;
+    font-weight: 200;
+}
+
+.login-block {
+    background: #effffd;
+    -webkit-box-shadow: 0 3px 50px 0 rgba(0, 0, 0, .1);
+    box-shadow: 0 3px 50px 0 rgba(0, 0, 0, .1);
+    border-radius: 5px;
+    max-width: 80%;
+    margin: 10px auto;
+    padding: 10px;
+    text-align: center;
+}
+
+
+form {
+    padding: 20px 0;
+    position: relative;
+    z-index: 2;
+}
+form input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    background-color: rgba(255, 255, 255, 0.29);
+    width: 250px;
+    border-radius: 3px;
+    padding: 10px 15px;
+    margin: 0 auto 10px auto;
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    -webkit-transition-duration: 0.25s;
+    transition-duration: 0.25s;
+    font-weight: 300;
+}
+form input:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+form input:focus {
+    background-color: rgb(255, 255, 255);
+
+    color: #398f65;
+}
+form button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0;
+    background-color: white;
+    border: 0;
+    padding: 10px 15px;
+    color: #53e3a6;
+    border-radius: 3px;
+    width: 250px;
+    cursor: pointer;
+    font-size: 18px;
+    -webkit-transition-duration: 0.25s;
+    transition-duration: 0.25s;
+}
+form button:hover {
+    background-color: #f5f7f9;
+}
+
+@-webkit-keyframes square {
+    0% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    100% {
+        -webkit-transform: translateY(-700px) rotate(600deg);
+        transform: translateY(-700px) rotate(600deg);
+    }
+}
+@keyframes square {
+    0% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    100% {
+        -webkit-transform: translateY(-700px) rotate(600deg);
+        transform: translateY(-700px) rotate(600deg);
+    }
+}

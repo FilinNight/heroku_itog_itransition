@@ -1,0 +1,12 @@
+.comments ul ul {
+    margin-left: 10px;
+}
+.comments .comment img {
+    margin-right: 20px;
+}
+.comments .comment {
+    padding: 4px;
+}
+.comments .comment:hover {
+    background: #eee;
+}

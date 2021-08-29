@@ -1,0 +1,11 @@
+2021-08-28 14:16:43 INFO  CollectionService:32 - add collection: SASRF, user: dima
+2021-08-28 14:30:37 INFO  UserService:71 - change user. (name: dima)
+2021-08-28 14:30:39 INFO  UserService:71 - change user. (name: dima)
+2021-08-28 17:37:36 INFO  UserService:91 - delete user. (name: Tom Echry)
+2021-08-28 17:49:17 INFO  UserService:71 - change user. (name: oleg)
+2021-08-28 18:27:40 INFO  CommentItemService:38 - add comment item. User: oleg, item: Радиоуправляемый Танк
+2021-08-28 18:27:47 INFO  CommentItemService:38 - add comment item. User: oleg, item: Радиоуправляемый Танк
+2021-08-28 18:27:54 INFO  CommentItemService:38 - add comment item. User: oleg, item: Радиоуправляемый Танк
+2021-08-28 18:28:03 INFO  CommentItemService:38 - add comment item. User: oleg, item: Радиоуправляемый Танк
+2021-08-29 00:41:59 INFO  CommentItemService:38 - add comment item. User: artur, item: kgkghk
+2021-08-29 00:42:03 INFO  CommentItemService:38 - add comment item. User: artur, item: kgkghk

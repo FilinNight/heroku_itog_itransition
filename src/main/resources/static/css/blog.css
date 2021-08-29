@@ -1,0 +1,29 @@
+.blogShort{ border-bottom:1px solid #ddd;}
+
+.btn-blog {
+    color: #ffffff;
+    background-color: #43b284;
+    border-color: #50a3a2;
+    border-radius:3px;
+}
+
+.btn-delete {
+    color: #ffffff;
+    background-color: #de1313;
+    border-color: #a41616;
+    border-radius:3px;
+}
+
+.btn-blog:hover,
+.btn-blog:focus,
+.btn-blog:active,
+.btn-blog.active,
+.open .dropdown-toggle.btn-blog {
+    color: white;
+    background-color:#53e3a6;
+    border-color: #50a3a2;
+}
+
+
+
+.margin10{margin-bottom:10px; margin-right:10px;}
